@@ -8,12 +8,12 @@ Apiary CLI Client
 ## Description
 
 The Apiary CLI Client gem is a command line tool for developing and previewing
-[API Blueprint](http://apiblueprint.org) documents locally. It can also be
+[API Blueprint](https://apiblueprint.org) documents locally. It can also be
 used for pushing updated documents to and fetching existing documents from
-[Apiary](http://apiary.io).
+[Apiary](https://apiary.io).
 
 
-Please see the `apiary help` command and the [full documentation](http://client.apiary.io) for an in-depth look in how to use this tool.
+Please see the `apiary help` command and the [full documentation](https://client.apiary.io) for an in-depth look in how to use this tool.
 
 For instructions on making your  own changes, see [Hacking Apiary CLI Client](#hacking-apiary-cli-client), below.
 
@@ -45,7 +45,7 @@ docker build -t "apiaryio/client" .
 *Required only for publish and fetch commands.*
 
 
-1. Make sure you are a registered user of [Apiary](http://apiary.io).
+1. Make sure you are a registered user of [Apiary](https://apiary.io).
 2. Retrieve API key (token) on [this page](https://login.apiary.io/tokens).
 3. Export it as an environment variable:
 
@@ -57,10 +57,10 @@ export APIARY_API_KEY=<your_token>
 ```
 $ apiary help
 Commands:
-  apiary fetch --api-name=API_NAME    # Fetch API Description Document from API_NAME.apiary.io
+  apiary fetch --api-name=API_NAME    # Fetch API Description Document from API_NAME.docs.apiary.io
   apiary help [COMMAND]               # Describe available commands or one specific command
   apiary preview                      # Show API documentation in browser or write it to file
-  apiary publish --api-name=API_NAME  # Publish API Description Document on docs.API_NAME.apiary.io (API Description must exist on apiary.io)
+  apiary publish --api-name=API_NAME  # Publish API Description Document on API_NAME.docs.apiary.io (API Description must exist on apiary.io)
   apiary styleguide                   # Check API Description Document against styleguide rules (Apiary.io pro plan is required - https://apiary.io/plans )
   apiary version                      # Show version
 
@@ -79,7 +79,7 @@ Options:
   --api-name=API_NAME  
   [--output=FILE]      # Write API Description Document into specified file
 
-Fetch API Description Document from API_NAME.apiary.io
+Fetch API Description Document from API_NAME.docs.apiary.io
 ```
 
 #### preview
@@ -117,7 +117,7 @@ Options:
                               # Default: true
   --api-name=API_NAME         
 
-Publish API Description Document on docs.API_NAME.apiary.io (API Description must exist on apiary.io)
+Publish API Description Document on API_NAME.docs.apiary.io (API Description must exist on apiary.io)
 ```
 
 #### styleguide
@@ -192,9 +192,17 @@ Use `bundle install` to install your changes locally, for manual and ad-hock tes
 
 Only gem owners `gem owner apiaryio` can publish new gem into [RubyGems](https://rubygems.org/gems/apiaryio).
 
-```sh
-$ rake release
-```
+1. bump version in `lib/apiary/version.rb`
+2. update `CHANGELOG.md`
+3. prepare Github Release with text in `CHANGELOG`
+4. make gem release:
+
+    ```sh
+    $ git tag $VERSION
+    $ git push --tags    
+    ```
+
+  - if release is stuck you need use `$ rake release --trace` to get OTP prompt.
 
 
 ## License

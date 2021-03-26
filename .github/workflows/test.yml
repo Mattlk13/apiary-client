@@ -1,0 +1,29 @@
+name: test
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+    types: [opened, reopened, synchronize]
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: ["windows-latest", "ubuntu-latest"]
+        ruby: ["3.0.x", "2.7.x", "2.6.x", "2.5.x"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Set up Bundler
+        run: gem install bundler --no-document
+      - name: Install dependencies
+        run: bundle install
+      - name: Run test
+        run: bundle exec rspec spec
+      - name: Run cucumber tests
+        if: matrix.os != 'windows-latest'
+        run: bundle exec cucumber
